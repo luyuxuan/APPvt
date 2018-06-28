@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+
+<script type="text/javascript" src="jquery-1.2.6.js"></script>
+<script type="text/javascript">
+//使用ajax的jquery查询
+var pageNo=0;
+
+//和body里面onload一样 一加载完窗体就调用
+$(function(){
+	
+	//直接调用select
+	selectusers();
+	
+	
+	
+})
+
+function selectusers()
+{
+	
+	//alert("hello");
+	//jquery ajax通过post连接
+	
+	//取值根据jquery
+	var account=$("#account").val();
+	
+	//下拉列表有默认值  不给value会报错
+	
+	var stament=$("#stament").val();
+	var email=$("#email").val();
+	
+	//stament下拉列表如果有一项没有value且<option>之间也没东西则不能alert   value为空则打印出 空
+	
+	//当getParameter没有name, id为on  没有value则为null
+	
+	
+	
+	
+	
+	
+	
+	$.post(" usersseverlet.do",
+	  {
+	    
+	    //把值传过去再处理
+	    
+	    	account:account,
+			
+			stament:stament,
+			
+			email:email,
+			 pageNo:pageNo,
+			
+	  },
+	  function(data,status){
+		  $("#result").html(data);
+	    //alert("Data: " + data + "\nStatus: " + status);
+	  });
+	
+	}
+	
+//使用jquery写分页  带jsp才可以写<%%>java代码
+
+function selectPage()
+{
+	
+	
+	}
+	
+	
+function delcheckAll()
+{
+	
+	//可以接受到传过来的删除user表里的主键id
+	
+	
+	
+	
+	
+	
+	
+	if(window.confirm("是否确定删除!"))
+	{
+			
+		//利用以前写的那个迭代器函数 接受全部checkbox值  name起一样 checkid
+		var aihao='';
+		
+		$('input:checkbox[id="checkid"]:checked').each(function(){
+			
+			//每一个勾选都调用下面这个函数
+			
+			delusers($(this).val());
+			//aihao+=$(this).val();
+		})
+		
+		//alert(aihao);
+		
+	
+	
+	
+	
+	}
+
+	
+	}
+	
+function delusers(delid)
+{
+	
+	//可以接受到传过来的删除user表里的主键id
+	
+	//alert(delid);
+	
+	
+	if(window.confirm("是否确定删除!"))
+		{
+
+		$.post("usersseverlet.do",
+				  {
+				    
+				    //把值传过去再处理
+				    	 pageNo:pageNo,
+				    	delid:delid,
+						
+				  },
+				  
+				  //等结束的时候再调用
+				  
+				  function(data,status){
+					  
+					
+					
+					 $("#result").html(data);
+				    //alert("Data: " + data + "\nStatus: " + status);
+				    
+				    //刷新不是浏览器再请求页面   ajax请求页面不叫刷新
+				    
+						
+				  });
+	
+	//	selectusers(); 
+		
+	
+		}
+	//上一页
+
+	function prePage()
+	{
+		//因为limit 0,每页数量  如果是第一页的话再点上一页还是第一页  分页关键是判断现在是第几页
+		//使用jquery写分页  带jsp才可以写<%%>java代码
+		
+		
+		//取值根据jquery
+	var account=$("#account").val();
+	
+	//下拉列表有默认值  不给value会报错
+	
+	var stament=$("#stament").val();
+	var email=$("#email").val();
+		pageNo=pageNo-1;
+		if(pageNo<0)
+			{
+				pageNo=0;
+			}
+
+		//alert(pageNo);
+		$.post("usersseverlet.do",
+				  {
+				    
+				    //把值传过去再处理
+				    
+				    account:account,
+			
+					stament:stament,
+			
+					email:email,
+					 
+				    pageNo:pageNo,
+					
+				  },
+				  
+				  //等结束的时候再调用
+				  
+				  function(data,status){
+					 $("#result").html(data);
+				    //alert("Data: " + data + "\nStatus: " + status);
+				    //刷新不是浏览器再请求页面   ajax请求页面不叫刷新
+				    
+				    
+					//selectproduct();并没有传pageNo给serverlet
+				  });
+				
+		}
+	//下一页
+
+	function nextPage()
+	{
+		//var sum = $("#aaa").val();
+		
+		//sum
+		
+		var sum=4;
+		
+		//取值根据jquery
+		var account=$("#account").val();
+		
+		//下拉列表有默认值  不给value会报错
+		
+		var stament=$("#stament").val();
+		var email=$("#email").val();
+		
+		if(pageNo<(sum-1))
+		{
+			pageNo+=1;
+			
+			
+		}
+		//alert("hello1");
+		
+		$.post("usersseverlet.do",
+				  {
+				    
+				    //把值传过去再处理
+				    
+				    
+				   //加这段代码是为了在筛选之后在分页
+				   
+				   
+				    account:account,
+			
+					stament:stament,
+			
+					email:email,
+					 
+					 
+					 
+				    pageNo:pageNo,
+						
+				  },
+				  
+				  //等结束的时候再调用
+				  
+				  function(data,status){
+					  
+					  //接受返回过来的信息 必须的
+					  
+					  
+					  $("#result").html(data);
+				    //alert("Data: " + data + "\nStatus: " + status);
+				    
+				    //刷新不是浏览器再请求页面   ajax请求页面不叫刷新
+				    
+					//	selectproduct();
+				  });
+		//alert("hello1");
+		}
+
+	
+	
+	
+	}
+
+</script>
+</head>
+<body>
+
+<label>买家昵称：</label>
+<input type="text" id="account"  style="width: 50px"/>
+
+<label>买家状态：</label>
+<select id="stament">
+	<option value=" "></option>
+	<option  value="正常" >正常</option>
+	<option  value="冻结 ">冻结</option>
+	
+</select>
+
+
+<label>邮箱：</label>
+<input type="text" id="email"  style="width: 50px"/>
+<input type="button" id="but1" value="查询" onclick="selectusers();"/>
+<div style="background-color: #3399FF;width: 1020px;height: 32px;border: 1px solid;line-height: 30px;border-top: 0px;border-bottom: 0px;">
+详细信息
+</div>
+
+<div id="result">
+</div>
+
+
+<input type="button" id="butdelall" value="批量删除" onclick="delcheckAll();"/>
+<br>
+   	  		  <a href="#" style="text-decoration: none;" onclick="prePage();">上一页</a>
+	 		  <a href="#" style="text-decoration: none;" onclick="nextPage();">下一页</a>
+
+</body>
+</html>

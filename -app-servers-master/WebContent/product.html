@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="jquery-1.2.6.js"></script>
+<script type="text/javascript">
+//使用ajax的jquery查询
+
+
+//和body里面onload一样 一加载完窗体就调用
+$(function(){
+	
+	
+	//直接调用select
+	selectproduct();
+	
+})
+
+function selectproduct()
+{
+	//jquery ajax通过post连接
+	
+	 
+	
+	var account=$("#account").val();
+
+	//下拉列表有默认值
+	var stament1=$("#stament1").val();
+ 
+	var stament2=$("#stament2").val();
+	
+	var price1=$("#price1").val();
+	var price2=$("#price2").val();
+	var sale1=$("#sale1").val();
+	var sale2=$("#sale2").val();
+	
+	
+	
+	$.post("productseverlet.do",
+	  {
+	    
+		 stament1:stament1,
+		 stament2:stament2,
+		 account:account,
+		 price1:price1,
+		 price2:price2,
+		 sale1:sale1,
+		 sale2:sale2,
+	 	
+	  },
+	  function(data,status){
+		 
+		  $("#result").html(data);
+	    //alert("Data: " + data + "\nStatus: " + status);
+	  });
+	
+	}
+	
+	
+function delcheckAll()
+{
+	
+	//可以接受到传过来的删除user表里的主键id
+	
+	
+	
+	
+	
+	
+	
+	if(window.confirm("是否确定删除!"))
+	{
+			
+		//利用以前写的那个迭代器函数 接受全部checkbox值  name起一样 checkid
+		var aihao='';
+		
+		$('input:checkbox[id="checkid"]:checked').each(function(){
+			
+			//每一个勾选都调用下面这个函数
+			
+			delusers($(this).val());
+			//aihao+=$(this).val();
+		})
+		
+		//alert(aihao);
+		
+		selectproduct();
+	
+	
+	
+	}
+
+	
+	}
+	
+function delusers(delid)
+{
+	
+	//可以接受到传过来的删除user表里的主键id
+	
+	//alert(delid);
+	
+	
+	if(window.confirm("是否确定删除!"))
+		{
+
+		$.post("productseverlet.do",
+				  {
+				    
+				    //把值传过去再处理
+				    
+				    	delid:delid,
+						
+				  },
+				  
+				  //等结束的时候再调用
+				  
+				  function(data,status){
+					 // $("#result").html(data);
+				    //alert("Data: " + data + "\nStatus: " + status);
+				    
+				    //刷新不是浏览器再请求页面   ajax请求页面不叫刷新
+				    
+						selectproduct();
+				  });
+				
+		
+	
+		}
+	
+	
+	
+	
+	}
+	
+//使用jquery写分页  带jsp才可以写<%%>java代码
+
+function selectPage()
+{
+	alert("heelo");
+	
+	}
+	
+function add()
+{
+	
+	
+	//弹出一个对话框
+	
+	window.open("add.jsp", null, "height=600,width=500");
+	
+	}
+	
+function update()
+{
+	
+	
+	//弹出一个对话框
+	
+	window.open("update.jsp", null, "height=600,width=500");
+	
+	}
+
+</script>
+
+</head>
+<body>
+<div>
+
+<label>分类：</label>
+<select id="stament1">
+	
+	<option  value=""></option>
+	<option  value="1">服装</option>
+	<option  value="3">家电</option>
+	
+	<option  value="10">美妆</option>
+	<option  value="11">母婴</option>
+	<option  value="12">皮具</option>
+	
+	<option  value="13">食品</option>
+</select>
+
+
+  <label>二级分类：</label>
+<select id="stament2">
+	<option value=""></option>
+	<option  value="5">皮包</option>
+	<option  value="4">彩电</option>
+	<option  value="2">皮靴</option>
+	
+</select>
+
+<label>名称：</label>
+<input type="text" id="account"/>
+
+<br>
+<label>价格：</label>
+<input type="text" id="price1"  style="width: 50px"/>
+～
+<input type="text" id="price2" style="width: 50px"/>
+
+<label>销量：</label>
+<input type="text" id="sale1"  style="width: 50px"/>
+～
+<input type="text" id="sale2" style="width: 50px"/>
+
+<input type="button" id="but1" value="查询" onclick="selectproduct();"/>
+
+
+
+</div>
+
+
+<div id="result">
+</div>
+
+<input type="button" id="butadd" value="新增商品" onclick="add();"/>
+<input type="button" id="butdelall" value="批量删除" onclick="delcheckAll();"/>
+<br>
+	    	  <a href="product.html?page=<%=prePage%>" style="text-decoration: none;">上一页</a>
+	 		  <a href="product.html?page=<%=nextPage%>" style="text-decoration: none;">下一页</a>
+
+
+</body>
+</html>

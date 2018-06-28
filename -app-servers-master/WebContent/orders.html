@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<label>商品名称：</label>
+<input type="text" id="shopname"/>
+
+<label>分类：</label>
+<select id="stament1">
+	
+	<option  value=""></option>
+	<option  value="1">服装</option>
+	<option  value="3">家电</option>
+	
+	<option  value="10">美妆</option>
+	<option  value="11">母婴</option>
+	<option  value="12">皮具</option>
+	
+	<option  value="13">食品</option>
+</select>
+
+
+  <label>二级分类：</label>
+<select id="stament2">
+	<option value=""></option>
+	<option  value="5">皮包</option>
+	<option  value="4">彩电</option>
+	<option  value="2">皮靴</option>
+	
+</select>
+<br>
+<label>买家昵称：</label>
+<input type="text" id="username"/>
+
+<label>成交时间：</label>
+<input type="text" id="timeday"  style="width: 40px"/>
+<label>日</label>
+<input type="text" id="timemin"  style="width: 30px"/>
+<label>时</label>
+<input type="text" id="timesecond"  style="width: 20px"/>
+<label>分</label>
+
+～
+<input type="text" id="timeday"  style="width: 40px"/>
+<label>日</label>
+<input type="text" id="timemin"  style="width: 30px"/>
+<label>时</label>
+<input type="text" id="timesecond"  style="width: 20px"/>
+<label>分</label>
+<br>
+<label>订单编号：</label>
+<input type="text" id="orderid"/>
+<label>订单状态：</label>
+<select id="stament3">
+	<option value=""></option>
+	<option  value="0">等待买家付款</option>
+	<option  value="1">买家已付款</option>
+	<option  value="2">卖家已发货</option>
+	<option  value="3">交易成功</option>
+	<option  value="4">交易取消</option>
+	<option  value="5">待付款和代发货</option>
+	<option  value="6">退款中订单</option>
+	
+</select>
+<input type="button" id="but1" value="查询" onclick="selectproduct();"/>
+<div style="background-color: #3399FF;width: 1020px;height: 32px;border: 1px solid;line-height: 30px;border-top: 0px;border-bottom: 0px;">
+详细信息
+</div>
+</body>
+</html>
